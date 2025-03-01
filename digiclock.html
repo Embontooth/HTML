@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 90vh;
+        }
+
+        .clock-container {
+            text-align: center;
+        }
+
+        .clock-time {
+            font-size: 50px;
+            margin: 20px;
+        }
+
+        .clock-date {
+            font-size: 30px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock-container">
+        <div id="clock-24" class="clock-time">00:00:00</div>
+        <div id="date-display" class="clock-date">Tuesday, 18 February</div>
+        <div id="clock-12" class="clock-time">00:00:00 AM</div>
+    </div>
+
+    <script>
+        const clock24Element = document.getElementById("clock-24");
+        const clock12Element = document.getElementById("clock-12");
+        const dateDisplayElement = document.getElementById("date-display");
+        
+        // Function to update both clocks and date
+        function updateClocks() {
+            const currentDateTime = new Date();
+            updateDateDisplay(currentDateTime);
+            update24HourClock(currentDateTime);
+            update12HourClock(currentDateTime);
+        }
+        
+        // Function to update the date display
+        function updateDateDisplay(dateTime) {
+            const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+            const dayOfWeek = dayNames[dateTime.getDay()];
+            const dayOfMonth = dateTime.getDate();
+            const month = monthNames[dateTime.getMonth()];
+            
+            const dateString = `${dayOfWeek}, ${dayOfMonth} ${month}`;
+            
+            dateDisplayElement.innerText = dateString;
+        }
+        
+        function formatTwoDigits(number) {
+            return number < 10 ? "0" + number : number;
+        }
+        
+        function update24HourClock(dateTime) {
+            const hours = formatTwoDigits(dateTime.getHours());
+            const minutes = formatTwoDigits(dateTime.getMinutes());
+            const seconds = formatTwoDigits(dateTime.getSeconds());
+            
+            clock24Element.innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        
+        function update12HourClock(dateTime) {
+            let hours = dateTime.getHours();
+            const minutes = formatTwoDigits(dateTime.getMinutes());
+            const seconds = formatTwoDigits(dateTime.getSeconds());
+            
+            const amPm = hours >= 12 ? "PM" : "AM";
+            hours = hours % 12;
+            hours = hours === 0 ? 12 : hours;
+            hours = formatTwoDigits(hours);
+            
+            clock12Element.innerText = `${hours}:${minutes}:${seconds} ${amPm}`;
+        }
+        
+        setInterval(updateClocks, 1000);
+        updateClocks();
+    </script>
+</body>
+
+</html>

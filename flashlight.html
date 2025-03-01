@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashlight Effect</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('MSD.jpg');
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(17, 7, 7, 0.9) 0%, rgba(4, 0, 0, 0.9) 30%);
+      transition: background 0.05s ease-out;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <div class="overlay"></div>
+</section>
+
+<script>
+$(document).mousemove(function (e) {
+    let x = e.pageX; // Mouse X-coordinate
+    let y = e.pageY; // Mouse Y-coordinate
+
+    $(".overlay").css({
+        "background": `radial-gradient(circle at ${x}px ${y}px, rgba(0, 0, 0, 0) 100px, rgba(0, 0, 0, 0.8) 200px, rgba(0, 0, 0, 0.95) 600px)`
+    });
+});
+</script>
+</body>
+</html>

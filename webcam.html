@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webcam Capture and Recording</title>
+</head>
+<body>
+  <video id="webcam" autoplay></video>
+  <canvas id="canvas" style="display: none;"></canvas>
+  <img id="screenshot" style="display: none;" />
+  <br />
+
+  <button id="startBtn">Start Webcam</button>
+  <button id="stopBtn" disabled>Stop Webcam</button>
+  <button id="captureBtn" disabled>Capture Screenshot</button>
+  <button id="startRecordBtn" disabled>Start Recording</button>
+  <button id="stopRecordBtn" disabled>Stop Recording</button>
+  <a id="downloadLink" style="display: none;">Download Video</a>
+
+  <script src="app.js"></script>
+</body>
+</html>

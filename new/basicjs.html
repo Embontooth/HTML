@@ -1,0 +1,352 @@
+//Position of the mouse
+<div id="box" style="width: 200px; height: 100px; background: lightgray; text-align: center; line-height: 100px;">
+    Hover here
+</div>
+<p id="coords"></p>
+
+<script>
+    document.getElementById("box").addEventListener("mousemove", function (event) {
+        document.getElementById("coords").innerText = `X: ${event.clientX}, Y: ${event.clientY}`;
+    });
+</script>
+Hide and Show Text on Button Click
+<button id="toggleTextBtn">Hide Text</button>
+<p id="text">This is a sample text.</p>
+
+<script>
+    document.getElementById("toggleTextBtn").addEventListener("click", function () {
+        let text = document.getElementById("text");
+        if (text.style.display === "none") {
+            text.style.display = "block";
+            this.innerText = "Hide Text";
+        } else {
+            text.style.display = "none";
+            this.innerText = "Show Text";
+        }
+    });
+</script>
+
+
+
+// Click Counter
+<button id="counterBtn">Clicked 0 times</button>
+
+<script>
+    let count = 0;
+    document.getElementById("counterBtn").addEventListener("click", function () {
+        count++;
+        this.innerText = `Clicked ${count} times`;
+    });
+</script>
+
+addEventListener("click", function() { ... }) listens for click events and runs the function when the button is clicked.
+
+"Clicked " + count + " times" or ‘Clicked ${count} times’
+
+
+
+
+//Change div color on Hover
+<div id="hoverDiv" style="width: 200px; height: 100px; background-color: lightgray;">
+    Hover over me!
+</div>
+
+<script>
+    let div = document.getElementById("hoverDiv");
+
+    div.addEventListener("mouseover", function () {
+        div.style.backgroundColor = "lightblue";
+    });
+
+    div.addEventListener("mouseout", function () {
+        div.style.backgroundColor = "lightgray";
+    });
+</script>
+
+
+
+// Task: Allow a user to drag to resize a <div> by adjusting its width or height.
+<script>
+    <div id="resizeDiv"
+        style="width: 200px; height: 200px; background-color: lightyellow; resize: both; overflow: hidden;">
+        Resize me by dragging!
+    </div>
+    
+    Math.random()
+    // The Math.random() function generates a random floating-point number between 0 (inclusive) and 1 (exclusive).
+    
+    console.log(Math.random()); // Example: 0.835472 (varies each time)
+    
+    let max = 10;
+    let randomNum = Math.floor(Math.random() * max);
+    console.log(randomNum); // 0 to 9
+    
+    let colors = ["red", "blue", "green", "yellow"];
+    let randomColor = colors[Math.floor(Math.random() * colors.length)];
+    console.log(randomColor); // Example: "green"
+</script>
+
+
+
+//Accessing Elements in the DOM
+
+1. getElementById("id")
+
+<h1 id="title">Hello, World!</h1>
+<script>
+    let element = document.getElementById("title");
+    element.style.color = "blue";
+</script>
+
+2. getElementsByClassName("class")
+
+<p class="box">Box 1</p>
+<p class="box">Box 2</p>
+<p class="box">Box 3</p>
+
+<script>
+    let elements = document.getElementsByClassName("box");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].style.color = "red";
+    }
+</script>
+
+3. getElementsByTagName("tag")
+
+<p>Paragraph 1</p>
+<p>Paragraph 2</p>
+<p>Paragraph 3</p>
+
+<script>
+    let elements = document.getElementsByTagName("p");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].style.backgroundColor = "yellow";
+    }
+</script>
+
+4. querySelector("selector")
+Selects the first element that matches a CSS selector.
+
+<h1 id="title">Hello, World!</h1>
+<script>
+    let element = document.querySelector("#title");
+    element.style.fontSize = "130px";
+</script>
+
+
+<h1 class="box">Hello, World!</h1>
+<script>
+    let element = document.querySelector(".box");
+    element.style.fontSize = "130px";
+</script>
+
+<h1 class="box">Hello, World!</h1>
+<h1 class="box">Welcome</h1> //No effect
+<script>
+    let element = document.querySelector(".box");
+    element.style.fontSize = "130px";
+</script>
+
+5. querySelectorAll("selector")
+
+<p class="box">Box 1</p>
+<p class="box">Box 2</p>
+<p class="box">Box 3</p>
+<script>
+    let elements = document.querySelectorAll(".box");
+    elements.forEach(e => {
+        e.style.border = "2px solid green";
+    });
+</script>
+
+
+
+//Modifying DOM Elements
+
+//Changing Text Content
+
+<p id="demo">Original Text</p>
+<button onclick="changeText()">Change Text</button>
+
+<script>
+    function changeText() {
+        document.getElementById("demo").textContent = "Text has changed!";
+    }
+</script>
+
+
+
+//Changing HTML Content
+
+<p id="demo">Original Text</p>
+<button onclick="changeText()">Change Text</button>
+
+<script>
+    function changeText() {
+        document.getElementById("demo").innerHTML = "<strong>New Bold Text</strong>";
+    }
+</script>
+
+
+
+
+//Changing Attributes
+
+<img id="image" src="old.jpg" alt="Old Image">
+<button onclick="changeImage()">Change Image</button>
+
+<script>
+    function changeImage() {
+        document.getElementById("image").src = "new.jpg";
+    }
+</script>
+
+
+
+//Changing CSS Styles
+<p id="styledText">Style me!</p>
+<button onclick="changeStyle()">Change Style</button>
+
+<script>
+    function changeStyle() {
+        document.getElementById("styledText").style.color = "red";
+        document.getElementById("styledText").style.fontSize = "20px";
+    }
+</script>
+
+
+
+//Creating a New Element
+<button onclick="addElement()">Add Element</button>
+<div id="container"></div>
+
+<script>
+    function addElement() {
+        let newPara = document.createElement("p"); // Create a new paragraph
+        newPara.textContent = "This is a new paragraph.";
+        document.getElementById("container").appendChild(newPara); // Add to div
+    }
+</script>
+
+
+
+//Removing an Element
+<p id="removeMe">Remove this paragraph.</p>
+<button onclick="removeElement()">Remove</button>
+<script>
+    function removeElement() {
+        let elem = document.getElementById("removeMe");
+        elem.parentNode.removeChild(elem);
+    }
+</script>
+
+
+
+<form id="myForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" />
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" />
+
+    <button type="submit">Submit</button>
+    <button type="button" id="resetBtn">Reset</button>
+</form>
+<script>
+    document.getElementById("myForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission
+        let nameValue = document.getElementById("name").value;
+        let emailValue = document.getElementById("email").value;
+        console.log("Name:", nameValue);
+        console.log("Email:", emailValue);
+    });
+    document.getElementById("resetBtn").addEventListener("click", function () {
+        document.getElementById("myForm").reset();
+        document.getElementById("name").focus();
+    });
+    // Automatically focus on the name field when the page loads
+    document.getElementById("name").focus();
+</script>
+
+
+
+
+
+//Event Handler Attributes:
+onchange Event
+<label for="colorSelect">Choose a color:</label>
+<select id="colorSelect" onchange="changeColor()">
+    <option value="">-- Select a color --</option> <!-- Default empty option -->
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+    <option value="green">Green</option>
+</select>
+<p id="message">Selected color: None</p>
+<script>
+    function changeColor() {
+        let selectedValue = document.getElementById("colorSelect").value;
+        if (selectedValue) {
+            document.getElementById("message").textContent = "Selected color: " + selectedValue;
+        } else {
+            document.getElementById("message").textContent = "Selected color: None";
+        }
+    }
+</script>
+
+
+
+//onmouseover and onmouseout Events
+<div id="hoverBox" onmouseover="hoverEffect()" onmouseout="drop()"
+    style="width: 200px; height: 100px; background-color: lightgray; text-align: center; padding: 30px;">
+    Hover over me!
+</div>
+<script>
+    function hoverEffect() {
+        document.getElementById("hoverBox").style.backgroundColor = "yellow";
+    }
+    function drop() {
+        document.getElementById("hoverBox").style.backgroundColor = null;
+    }
+</script>
+
+
+
+//Objects
+
+const user = {
+username: "coder123",
+email: "coder@example.com"
+};
+
+console.log(user.username); // Dot notation: coder123
+console.log(user["email"]); // Bracket notation: coder@example.com
+
+
+
+//Modifying Object Properties
+const student = { name: "Emma", grade: "A" };
+student.age = 21; // Adding new property
+student.grade = "A+"; // Modifying existing property
+delete student.name; // Deleting a property
+console.log(student); // Output: { grade: 'A+', age: 21 }
+
+
+
+//Looping Through an Object
+const book = { title: "1984", author: "George Orwell", year: 1949 };
+for (let key in book) {
+console.log(`${key}: ${book[key]}`);
+}
+
+
+//Object Methods
+const calculator = {
+add: function (a, b) {
+return a + b;
+},
+subtract: function (a, b) {
+return a - b;
+}
+};
+console.log(calculator.add(5, 3)); // Output: 8
+console.log(calculator.subtract(10, 4)); // Output: 6

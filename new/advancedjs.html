@@ -1,0 +1,355 @@
+//External JavaScript Files Html file 
+<h1>Welcome to External JavaScript</h1>
+<button onclick="showMessage()">Click Me</button>
+<script src="script.js"></script>
+
+//Javascript file
+console.log("Hello from external JavaScript!");
+function showMessage() {
+alert("Hello! This is an external JavaScript file.");
+}
+
+
+
+//Radio Buttons and javascript to check if it is selected
+<h2>Select Your Favorite Programming Language:</h2>
+<label><input type="radio" name="language" value="JavaScript"> JavaScript</label><br>
+<label><input type="radio" name="language" value="Python"> Python</label><br>
+<label><input type="radio" name="language" value="Java"> Java</label><br>
+
+<button onclick="getSelectedLanguage()">Submit</button>
+<p id="result"></p>
+<script>
+function getSelectedLanguage() {
+    let radios = document.getElementsByName("language");
+    let selectedValue = "";
+
+    for (let radio of radios) {      // Iterates through each radio button in the list.
+        if (radio.checked) {        // Checks if the radio button is selected
+            selectedValue = radio.value;
+            break;
+        }
+    }
+    if (selectedValue) {
+        document.getElementById("result").innerText = "You selected: " + selectedValue;
+    } else {
+        alert("Please select a language!");
+    }
+}
+</script>
+
+
+
+//Checkboxes and javascript to check if it is selected
+<h2>Select Your Favorite Fruits:</h2>
+<label><input type="checkbox" name="fruit" value="Apple"> Apple</label><br>
+<label><input type="checkbox" name="fruit" value="Banana"> Banana</label><br>
+<label><input type="checkbox" name="fruit" value="Mango"> Mango</label><br>
+
+<button onclick="getSelectedFruits()">Submit</button>
+<p id="result"></p>
+<script>
+function getSelectedFruits() {
+    let checkboxes = document.getElementsByName("fruit");
+    let selectedFruits = [];
+    for (let checkbox of checkboxes) {
+        if (checkbox.checked) {
+            selectedFruits.push(checkbox.value);
+        }
+    }
+    if (selectedFruits.length > 0) {
+        document.getElementById("result").innerText = "You selected: " + selectedFruits.join(", ");
+    } else {
+        alert("Please select at least one fruit!");
+    }
+}
+</script>
+
+
+
+//Nested for Loop
+for (let i = 1; i <= 3; i++) { 
+    for (let j=1; j <=2; j++) { 
+        console.log(`i=${i}, j=${j}`); 
+    } 
+} 
+
+
+//fieldset and legend Elements 
+<fieldset>
+    <legend>Personal Information</legend>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email"><br><br>
+
+    <button onclick="getFormData()">Submit</button>
+</fieldset>
+<p id="result"></p>
+<script>
+    function getFormData() {
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+
+        if (name && email) {
+            document.getElementById("result").innerText = `Name: ${name}, Email: ${email}`;
+        } else {
+            alert("Please fill out all fields.");
+        }
+    }
+</script>
+
+
+
+//Manipulating CSS with JavaScript
+<button onclick="changeColor()">Change Background</button>
+
+<script>
+    function changeColor() {
+        document.body.style.backgroundColor = "lightblue";
+    }
+</script>
+
+
+//Changing Multiple Styles
+<p id="text">Hello, JavaScript!</p>
+<button onclick="styleText()">Apply Styles</button>
+
+<script>
+    function styleText() {
+        let text = document.getElementById("text");
+        text.style.color = "red";
+        text.style.fontSize = "20px";
+        text.style.fontWeight = "bold";
+    }
+</script>
+
+
+
+//Adding & Removing CSS Classes
+<style>
+    .dark-mode {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+<button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+<script>
+    function toggleDarkMode() {
+        document.body.classList.toggle("dark-mode");
+    }
+</script>
+
+
+
+//Getting Computed Styles
+<p id="message" style="background-color: blue;">Hello World!</p>
+<button onclick="getFontSize()">Get Font Size</button>
+
+<script>
+    function getFontSize() {
+        let p = document.getElementById("message");
+        let fontSize = window.getComputedStyle(p).fontSize;
+        let fontColor = window.getComputedStyle(p).getPropertyValue("background-color");
+        // get the current CSS properties of an element
+        alert("Font Size: " + fontSize + " " + "Font Color: " + fontColor);
+    }
+</script>
+
+
+
+//Using z-index to Stack Elements (higher z-index, more priority to be seen is given)
+<style>
+    .box {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        border: 2px solid black;
+        transition: 0.5s;
+    }
+
+    #box1 {
+        background-color: red;
+        top: 50px;
+        left: 50px;
+        z-index: 1;
+    }
+
+    #box2 {
+        background-color: blue;
+        top: 80px;
+        left: 80px;
+        z-index: 2;
+    }
+</style>
+
+<div id="box1" class="box"></div>
+<div id="box2" class="box"></div>
+
+<button onclick="bringToFront('box1')">Bring Red to Front</button>
+<button onclick="bringToFront('box2')">Bring Blue to Front</button>
+
+<script>
+    function bringToFront(id) {
+        let box = document.getElementById(id);
+        box.style.zIndex = 3; // Set higher value to bring it to the top
+
+        // Lower the z-index of other box
+        let otherBox = id === "box1" ? document.getElementById("box2") : document.getElementById("box1");
+        otherBox.style.zIndex = 1;
+    }
+</script>
+
+
+
+//Textarea Controls
+<textarea id="myTextarea" rows="5" cols="30" placeholder="type here"></textarea>
+<button onclick="updateText()">Change Text</button>
+<button onclick="clearText()">Clear</button>
+<button onclick="getText()">Get Value</button>
+<script>
+    function updateText() {
+        document.getElementById("myTextarea").value = "Hello, JavaScript!";
+    }
+
+    function clearText() {
+        document.getElementById("myTextarea").value = "";
+    }
+
+    function getText() {
+        alert(document.getElementById("myTextarea").value);
+    }
+</script>
+
+
+
+//Enabling & Disabling Textarea
+<textarea id="disabledTextarea" disabled></textarea>
+<button onclick="enableTextarea()">Enable</button>
+<button onclick="disableTextarea()">Disable</button>
+
+<script>
+    function enableTextarea() {
+        document.getElementById("disabledTextarea").removeAttribute("disabled");
+    }
+
+    function disableTextarea() {
+        document.getElementById("disabledTextarea").setAttribute("disabled", "true");
+    }
+</script>
+
+
+
+//Pull-Down Menus
+Basic Dropdown Menu (<select>)
+<label for="fruits">Choose a fruit:</label>
+<select id="fruits">
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="cherry">Cherry</option>
+</select>
+
+<button onclick="getSelectedValue()">Get Selected Fruit</button>
+
+<script>
+    function getSelectedValue() {
+        let dropdown = document.getElementById("fruits");
+        alert("Selected Fruit: " + dropdown.value);
+    }
+</script>
+
+            
+
+//Dynamically Add & Remove Options
+<select id="colors">
+    <option value="red">Red</option>
+    <option value="blue">Blue</option>
+</select>
+<button onclick="addOption()">Add Green</button>
+<button onclick="removeOption()">Remove Last</button>
+
+<script>
+    function addOption() {
+        let dropdown = document.getElementById("colors");
+        let newOption = document.createElement("option");
+        newOption.value = "green";
+        newOption.text = "Green";
+        dropdown.add(newOption);
+    }
+
+    function removeOption() {
+        let dropdown = document.getElementById("colors");
+        dropdown.remove(dropdown.options.length - 1); // Removes the last option
+    }
+</script>
+
+
+
+//List Boxes
+<label for="cities">Choose cities:</label>
+<select id="cities" multiple size="5">
+    <option value="nyc">New York</option>
+    <option value="la">Los Angeles</option>
+    <option value="chicago">Chicago</option>
+    <option value="houston">Houston</option>
+    <option value="miami">Miami</option>
+</select>
+
+<button onclick="getSelectedValues()">Get Selected Cities</button>
+
+<script>
+    function getSelectedValues() {
+        let listBox = document.getElementById("cities");
+        let selected = [];
+
+        for (let option of listBox.options) {
+            if (option.selected) {
+                selected.push(option.text); // Get selected option's text
+            }
+        }
+
+        alert("Selected Cities: " + selected.join(", "));
+    }
+</script>
+
+
+
+//Event Handler (on[event])
+<button id="btn">Click Me</button>
+
+<script>
+    let btn = document.getElementById("btn");
+
+    // Assign an event handler
+    btn.onclick = function () {
+        alert("Button clicked!");
+    };
+
+    // Overwrites the previous event handler
+    btn.onclick = function () {
+        console.log("New click event!");
+    };
+</script>
+
+
+
+//Event Listener (addEventListener)
+<button id="btn">Click Me</button>
+
+<script>
+    let btn = document.getElementById("btn");
+
+    // First event listener
+    btn.addEventListener("click", function () {
+        alert("Button clicked!");
+    });
+
+    // Second event listener (does NOT replace the first)
+    btn.addEventListener("click", function () {
+        console.log("Another click event!");
+    });
+</script>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Shapes</title>
+</head>
+
+<body>
+//Canvas and Drawing
+<canvas id="myCanvas" width="400" height="300" style="border:1px solid black;"></canvas>
+<script>
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+
+    // Draw a Line
+    ctx.beginPath();
+    ctx.moveTo(50, 50);
+    ctx.lineTo(200, 50);
+    ctx.strokeStyle = "red";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Draw a Rectangle
+    ctx.fillStyle = "blue";
+    ctx.fillRect(100, 100, 150, 80); // (x, y, width, height)
+
+    // Draw a Circle
+    ctx.beginPath();
+    ctx.arc(300, 150, 40, 0, Math.PI * 2);
+    ctx.fillStyle = "green";
+    ctx.fill();
+
+    // Draw Text
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "purple";
+    ctx.fillText("Canvas Drawing", 120, 250);
+</script>
+
+
+
+//Clear Canvas
+<canvas id="myCanvas" width="400" height="300" style="border:1px solid black;"></canvas>
+<br>
+<button onclick="clearCanvas()">Clear Canvas</button>
+
+<script>
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+
+    // Draw text on the canvas
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "purple";
+    ctx.fillText("Canvas Drawing", 120, 250);
+
+    // Function to clear the canvas
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+
+
+
+//Draw Image
+<canvas id="myCanvas" width="400" height="300" style="border:1px solid black;"></canvas>
+<br>
+<button onclick="clearCanvas()">Clear Canvas</button>
+<button onclick="drawImage()">Draw Image</button>
+
+<script>
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+    let img = new Image(); //JavaScript object representing an image
+    img.src = "https://media.cntraveler.com/photos/66f5743c6fa760555a3de330/16:9/w_1920,c_limit/GettyImages-121489219.jpg";
+    function drawImage() {
+        ctx.drawImage(img, 100, 50, 150, 150);
+    }
+    function clearCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+
+
+
+//Animation for a bouncing ball using canvas
+<canvas id="myCanvas" width="500" height="300" style="border:1px solid black;"></canvas>
+
+<script>
+    let canvas = document.getElementById("myCanvas");
+    let ctx = canvas.getContext("2d");
+
+    let x = 50;  // Initial position of the ball
+    let y = 150; // Fixed vertical position
+    let dx = 2;  // Change in x (speed)
+
+    function drawBall() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2); // Draw a circle
+        ctx.fillStyle = "blue";
+        ctx.fill();
+        ctx.closePath();
+
+        x += dx; // Move ball horizontally
+
+        // Reverse direction if it hits canvas edges
+        if (x + 20 > canvas.width || x - 20 < 0) {
+            dx = -dx;
+        }
+
+        requestAnimationFrame(drawBall); // Recursively call animation function
+    }
+
+    drawBall(); // Start animation
+</script>
+</body>
+</html>

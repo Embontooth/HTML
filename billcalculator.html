@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tip Calculator 💰</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #a7d5c6;
+        }
+        .calculator {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+        }
+        .result p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .result .total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Tip Calculator 💰</h1>
+        
+        <div class="input-group">
+            <label for="bill">Bill Amount (₹):</label>
+            <input type="number" id="bill" min="0" placeholder="Enter bill amount">
+        </div>
+        
+        <div class="input-group">
+            <label for="tip">Tip Percentage:</label>
+            <select id="tip">
+                <option value="0.15">15% - Good service</option>
+                <option value="0.18">18% - Great service</option>
+                <option value="0.20">20% - Excellent service</option>
+                <option value="0.25">25% - Outstanding service</option>
+                <option value="0">Custom</option>
+            </select>
+        </div>
+        
+        <div class="input-group" id="custom-tip-container" style="display: none;">
+            <label for="custom-tip">Custom Tip Percentage (%):</label>
+            <input type="number" id="custom-tip" min="0" max="100" placeholder="Enter custom tip %">
+        </div>
+        
+        <div class="input-group">
+            <label for="people">Split Between:</label>
+            <input type="number" id="people" min="1" value="1" placeholder="Number of people">
+        </div>
+        
+        <div class="result">
+            <p>Tip Amount: ₹<span id="tip-amount">0.00</span></p>
+            <p>Tip Per Person: ₹<span id="tip-per-person">0.00</span></p>
+            <p class="total">Total Bill: ₹<span id="total">0.00</span></p>
+            <p class="total">Amount Per Person: ₹<span id="per-person">0.00</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Get all the elements
+        const billInput = document.getElementById('bill');
+        const tipSelect = document.getElementById('tip');
+        const customTipContainer = document.getElementById('custom-tip-container');
+        const customTipInput = document.getElementById('custom-tip');
+        const peopleInput = document.getElementById('people');
+        const tipAmountSpan = document.getElementById('tip-amount');
+        const tipPerPersonSpan = document.getElementById('tip-per-person');
+        const totalSpan = document.getElementById('total');
+        const perPersonSpan = document.getElementById('per-person');
+
+        // Function to calculate and update values
+        function calculateTip() {
+            // Get bill amount
+            const billAmount = parseFloat(billInput.value) || 0;
+            
+            // Get tip percentage
+            let tipPercentage;
+            if (tipSelect.value === "0") {
+                tipPercentage = (parseFloat(customTipInput.value) || 0) / 100;
+            } else {
+                tipPercentage = parseFloat(tipSelect.value);
+            }
+            
+            // Get number of people
+            const numberOfPeople = parseInt(peopleInput.value) || 1;
+            
+            // Calculate tip and total
+            const tipAmount = billAmount * tipPercentage;
+            const totalAmount = billAmount + tipAmount;
+            
+            // Calculate per person amounts
+            const tipPerPerson = tipAmount / numberOfPeople;
+            const amountPerPerson = totalAmount / numberOfPeople;
+            
+            // Update the display
+            tipAmountSpan.textContent = tipAmount.toFixed(2);
+            tipPerPersonSpan.textContent = tipPerPerson.toFixed(2);
+            totalSpan.textContent = totalAmount.toFixed(2);
+            perPersonSpan.textContent = amountPerPerson.toFixed(2);
+        }
+        
+        // Show/hide custom tip input based on selection
+        tipSelect.addEventListener('change', function() {
+            if (this.value === "0") {
+                customTipContainer.style.display = "block";
+            } else {
+                customTipContainer.style.display = "none";
+            }
+            calculateTip();
+        });
+        
+        // Add event listeners to inputs
+        billInput.addEventListener('input', calculateTip);
+        customTipInput.addEventListener('input', calculateTip);
+        peopleInput.addEventListener('input', calculateTip);
+    </script>
+</body>
+</html>

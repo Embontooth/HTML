@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .timer-container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .timer-display {
+            font-size: 48px;
+            margin: 20px 0;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <h2>Countdown Timer</h2>
+        
+        <div>
+            <input type="number" id="time-input" placeholder="Seconds" min="1">
+            <button id="set-btn">Set Timer</button>
+        </div>
+        
+        <div class="timer-display" id="timer-display">00:00</div>
+        
+        <div class="controls">
+            <button id="start-btn">Start</button>
+            <button id="pause-btn">Pause</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+    </div>
+
+    <script>
+        // Timer variables
+        let countdown;
+        let remainingTime = 0;
+        let isRunning = false;
+        
+        // DOM elements
+        const timeInput = document.getElementById('time-input');
+        const setBtn = document.getElementById('set-btn');
+        const timerDisplay = document.getElementById('timer-display');
+        const startBtn = document.getElementById('start-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        
+        // Format time as MM:SS
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+        
+        // Set timer from input
+        setBtn.addEventListener('click', () => {
+            const inputTime = parseInt(timeInput.value);
+            if (isNaN(inputTime) || inputTime <= 0) {
+                alert('Please enter a valid positive number');
+                return;
+            }
+            
+            remainingTime = inputTime;
+            timerDisplay.textContent = formatTime(remainingTime);
+            
+            // Stop any running timer
+            if (isRunning) {
+                clearInterval(countdown);
+                isRunning = false;
+            }
+        });
+        
+        // Start the timer
+        startBtn.addEventListener('click', () => {
+            if (isRunning) return;
+            if (remainingTime <= 0) {
+                alert('Please set the timer first');
+                return;
+            }
+            
+            isRunning = true;
+            
+            countdown = setInterval(() => {
+                remainingTime--;
+                timerDisplay.textContent = formatTime(remainingTime);
+                
+                if (remainingTime <= 0) {
+                    clearInterval(countdown);
+                    isRunning = false;
+                    alert('Time is up!');
+                }
+            }, 1000);
+        });
+        
+        // Pause the timer
+        pauseBtn.addEventListener('click', () => {
+            if (isRunning) {
+                clearInterval(countdown);
+                isRunning = false;
+            }
+        });
+        
+        // Reset the timer
+        resetBtn.addEventListener('click', () => {
+            clearInterval(countdown);
+            isRunning = false;
+            remainingTime = 0;
+            timerDisplay.textContent = formatTime(remainingTime);
+            timeInput.value = '';
+        });
+    </script>
+</body>
+</html>

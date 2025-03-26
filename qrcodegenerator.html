@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #qrcode {
+            margin: 20px auto;
+        }
+        #download-btn {
+            display: none;
+            background-color: #2196F3;
+        }
+        #download-btn:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+    <h1>QR Code Generator</h1>
+    
+    <div class="input-group">
+        <input type="text" id="qr-text" placeholder="Enter text or URL to generate QR code">
+    </div>
+    
+    <button id="generate-btn">Generate QR Code</button>
+    
+    <div id="qrcode"></div>
+    
+    <button id="download-btn">Download QR Code</button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const qrText = document.getElementById('qr-text');
+            const generateBtn = document.getElementById('generate-btn');
+            const qrcode = document.getElementById('qrcode');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            generateBtn.addEventListener('click', generateQRCode);
+            qrText.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    generateQRCode();
+                }
+            });
+            
+            downloadBtn.addEventListener('click', downloadQRCode);
+            
+            function generateQRCode() {
+                const text = qrText.value.trim();
+                
+                if (!text) {
+                    alert('Please enter text or URL');
+                    return;
+                }
+                
+                // Clear previous QR code
+                qrcode.innerHTML = '';
+                try {
+                    const qrImage = document.createElement('img');
+                    QRCode.toDataURL(text, { width: 200, margin: 1, errorCorrectionLevel: 'H' }, function(err, url) {
+                        if (err) {
+                            console.error("Data URL method failed:", err);
+                            alert('Failed to generate QR code. Please try again with different text.');
+                        } else {
+                            qrImage.src = url;
+                            qrcode.appendChild(qrImage);
+                            downloadBtn.style.display = 'inline-block';
+                        }
+                    });
+                } 
+                catch (innerError) {
+                    console.error("Inner fallback error:", innerError);
+                    alert('Failed to generate QR code. Please check your browser compatibility.');
+                }
+                }
+            function downloadQRCode() {
+                const canvas = qrcode.querySelector('canvas');
+                if (canvas) {
+                    try {
+                        const link = document.createElement('a');
+                        link.download = 'qrcode.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                    } catch (error) {
+                        console.error("Download error:", error);
+                        alert('Failed to download the QR code. The image might be too large or your browser might not support this feature.');
+                    }
+                } else {
+                    // Try to download the image if canvas is not available
+                    const img = qrcode.querySelector('img');
+                    if (img) {
+                        const link = document.createElement('a');
+                        link.download = 'qrcode.png';
+                        link.href = img.src;
+                        link.click();
+                    } else {
+                        alert('No QR code found to download. Please generate a QR code first.');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
